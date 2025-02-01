@@ -60,7 +60,7 @@
     </div>
 @endsection
 @section('admin_scripts')
-    <script src="https://cdn.tiny.cloud/1/profov2dlbtwaoggjfvbncp77rnjhgyfnl3c2hx3kzpmhif1/tinymce/7/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API_KEY') }}}/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script>
         tinymce.init({

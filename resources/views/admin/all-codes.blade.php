@@ -1,4 +1,4 @@
-k@extends('layout.admin-layout')
+@extends('layout.admin-layout')
 @section('admin_content')
     @if (session('status'))
         <div class="row py-3">

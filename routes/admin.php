@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivationCodeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OptionController;
@@ -38,13 +39,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'verifyR
     Route::get('/plans/{plan:slug}', [PlanController::class, 'EditPlan'])->name('edit-plan');
     Route::delete('/plans/{plan:slug}', [PlanController::class, 'deletePlan'])->name('delete-plan');
 
+    Route::get('/codes', [ActivationCodeController::class, 'codes'])->name('all-codes');
+    Route::post('/generate-code', [ActivationCodeController::class, 'create'])->name('generate-code');
+    Route::delete('/codes/delete/{code:code}', [ActivationCodeController::class, 'destroy'])->name('delete-code');
+
     Route::get('/users', [AdminController::class, 'AllUsers'])->name('all-users');
     Route::get('/add/user', [AdminController::class, 'addUser'])->name('add-user');
     Route::get('/user/{user}/edit', UserEdit::class)->name('edit-user');
     Route::delete('/delete-user/{user}', [AdminController::class, 'deleteUser'])->name('delete-user');
-
-    Route::get('/user/{user}/devices', [UserDeviceController::class, 'index'])->name('user-devices');
-    Route::delete('/devices/{device}/delete', [UserDeviceController::class, 'delete'])->name('delete-device');
 
     Route::get('/options', [OptionController::class, 'Options'])->name('all-options');
     Route::post('/options/save', [OptionController::class, 'saveOptions'])->name('save-options');

@@ -11,7 +11,6 @@ The VPN Admin Panel allows administrators to manage users, subscriptions, server
 - Server Management
 - API Integrations
 - Detailed Analytics and Reports
-- Device Limits and Control
 
 ## Installation
 1. Clone the repository:

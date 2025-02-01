@@ -24,13 +24,15 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [AuthController::class, 'user'])->name('api.user');
+    Route::get('/user', [UserController::class, 'user'])->name('api.user');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
 
     Route::post('/purchase', [PurchaseController::class, 'addPurchase'])->name('api.add.purchase');
 
     Route::post('/purchase/status', [PurchaseController::class, 'Status'])->name('api.purchase');
+
+    Route::post('/purchase/redeem', [PurchaseController::class, 'redeemActivationCode'])->name('api.purchase.verify');
 
     Route::post('/user/register-device', [UserController::class, 'registerDevice'])->name('api.register.device');
 

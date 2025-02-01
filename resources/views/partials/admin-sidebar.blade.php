@@ -38,11 +38,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('all-users') }}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{ route('all-users') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Customer Accounts</a>
                     </li>
                     <li>
-                        <a href="{{ route('all-admins') }}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{ route('all-admins') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Admin Accounts</a>
                     </li>
                 </ul>
@@ -54,8 +56,15 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('all-plans') }}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{ route('all-plans') }}"><i
+                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Plans</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('all-codes') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Codes</a>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -65,12 +74,6 @@
                     <span>Settings</span>
                 </a>
             </li>
-            {{-- <li>
-                <a href="{{ route('all-notifications') }}">
-                    <iconify-icon icon="ant-design:notification-outlined" class="menu-icon"></iconify-icon>
-                    <span>Notifications</span>
-                </a>
-            </li> --}}
         </ul>
     </div>
 </aside>

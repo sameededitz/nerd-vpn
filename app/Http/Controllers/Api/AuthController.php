@@ -109,27 +109,15 @@ class AuthController extends Controller
         ], 400);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         $user = Auth::user();
         /** @var \App\Models\User $user **/
-        $user->unregisterDevice($request->device_id);
         $user->tokens()->delete();
 
         return response()->json([
             'status' => true,
             'message' => 'User logged out successfully!'
-        ], 200);
-    }
-
-    public function user(Request $request)
-    {
-        $user = Auth::user();
-        /** @var \App\Models\User $user **/
-        return response()->json([
-            'status' => true,
-            'user' => $user,
-            'device_limit' => $user->getSubscriptionDeviceLimit()
         ], 200);
     }
 }

@@ -17,21 +17,21 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email_or_username' => 'required',
+            'name' => 'required',
             'password' => 'required',
         ]);
 
-        $loginType = filter_var($request->email_or_username, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $loginType = filter_var($request->name, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
 
-        $user = User::where($loginType, $request->email_or_username)->first();
+        $user = User::where($loginType, $request->name)->first();
         if(!$user){
             return back()->withErrors([
-                'email_or_username' => "We couldn't find an account with that " . ($loginType == 'email' ? 'email' : 'username') . ".",
+                'name' => "We couldn't find an account with that " . ($loginType == 'email' ? 'email' : 'username') . ".",
             ]);
         }
 
         $credentials = [
-            $loginType => $request->email_or_username,
+            $loginType => $request->name,
             'password' => $request->password,
         ];
         $remember = $request->has('remember');
@@ -66,9 +66,8 @@ class AuthController extends Controller
         return view('auth.signup');
     }
 
-    public function register(Request $request)
+    public function signup(Request $request)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required|string|min:3|unique:users,name',
             'email' => 'required|email|unique:users,email',

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('role', ['normal', 'admin'])->default('normal');
             $table->string('google_id')->nullable()->unique();
             $table->string('apple_id')->nullable()->unique();
+            $table->string('avatar')->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -3,14 +3,14 @@
 <html lang="en" data-theme="light">
 
 <head>
-    @include('partials.admin-head')
+    @include('partials.admin.admin-head')
 </head>
 
 <body class="scroll-sm">
 
     @yield('admin-guest')
 
-    @include('partials.admin-scripts')
+    @include('partials.admin.admin-scripts')
 
     <script>
         // ================== Password Show Hide Js Start ==========

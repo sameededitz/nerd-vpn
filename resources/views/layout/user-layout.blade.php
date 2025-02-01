@@ -1,21 +1,58 @@
 <!doctype html>
-<html lang="en">
+<html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    @include('partials.home.head')
 </head>
 
 <body>
-    @yield('content')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
 
-    @yield('user_script')
+    <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+    <!--==============================
+    Mobile Menu
+    ============================== -->
+    @include('partials.home.mobile')
+    <!--==============================
+     Preloader
+    ==============================-->
+    <div class="preloader">
+        <button class="vs-btn preloaderCls">Cancel Preloader </button>
+        <div class="preloader-inner text-center">
+            <img src="assets/img/logo.svg" alt="Marino">
+            <span class="loader"></span>
+        </div>
+    </div>
+    <!--==============================
+    Sidemenu
+    ============================== -->
+    @include('partials.home.sidebar')
+    <!--==============================
+    Header Area
+    ==============================-->
+    @include('partials.home.navbar')
+    
+    @yield('content')
+
+    <!--==============================
+	Footer Area
+	==============================-->
+    @include('partials.home.footer')
+    <!-- Scroll To Top -->
+    <a href="#" class="scrollToTop scroll-btn"><i class="far fa-arrow-up"></i></a>
+
+    <!--********************************
+			Code End  Here 
+	******************************** -->
+
+    <!--==============================
+        All Js File
+    ============================== -->
+    @include('partials.home.scripts')
+    @yield('scripts')
+
 </body>
 
 </html>

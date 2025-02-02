@@ -1,27 +1,51 @@
-@extends('layout.admin-guest')
-@section('admin-guest')
-    <section class="auth bg-base d-flex flex-wrap justify-content-center align-items-center">
-        <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
-            <div class="max-w-464-px mx-auto w-100">
-                <div>
-                    <h4 class="mb-12">Verify Email</h4>
-                    <p class="mb-16 text-secondary-light text-lg">
-                        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-                    </p>
-                    @if (session('status'))
-                        <p class="mb-32 text-secondary-light text-lg">{{ session('status') }}</p>
-                    @endif
-                </div>
-                <form action="{{ route('verification.send') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">Resend</button>
-                </form>
-                <div class="text-center">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="text-primary-600 fw-bold mt-24">Logout</button>
-                    </form>
+@extends('layout.user-layout')
+@section('title')
+    Verify Email
+@endsection
+@section('content')
+    <!--==============================
+                                            Breadcumb
+                                            ============================== -->
+    <div class="breadcumb-wrapper Cover all esports & gamers needs" data-bg-src="{{ asset('assets/img-2/breadcumb-bg.jpg') }}">
+        <div class="container z-index-common">
+            <div class="breadcumb-content">
+                <h1 class="breadcumb-title">Verify Email</h1>
+            </div>
+            <div class="breadcumb-menu-wrap">
+                <ul class="breadcumb-menu vs-btn2">
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li>Verify Email</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--==============================
+                                        Verify Email Area
+                                        ============================== -->
+    <section class="contact-layout1 space-top contact-space">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 text-center">
+                    <div class="title-area wow fadeInUp wow-animated" data-wow-delay="0.3s">
+                        <h2 class="sec-title">Verify Your Email Address</h2>
+                    </div>
+                    <div class="vs-comment-form">
+                        @if (session('status') == 'verification-link-sent')
+                            <x-user-alert type="success" message="A new email verification link has been emailed to you!" />
+                        @endif
+                        <p class="mb-3">Before proceeding, please check your email for a verification link.</p>
+                        <p class="mb-3">If you did not receive the email, click the button below to request another.</p>
+                        <form action="{{ route('verification.send') }}" method="post" class="form-style3 w-100 mb-3">
+                            @csrf
+                            <button type="submit" class="vs-btn w-100 justify-content-center">Resend</button>
+                        </form>
+                        <form action="{{ route('logout') }}" method="post" class="form-style3 w-100">
+                            @csrf
+                            <button type="submit" class="vs-btn w-100 justify-content-center">Logout</button>
+                        </form>
+                    </div>
+                    <p class="form-messages mb-0 mt-3"></p>
                 </div>
             </div>
         </div>

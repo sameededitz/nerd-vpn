@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--==============================
-                                        Breadcumb
-                                        ============================== -->
+                                                Breadcumb
+                                                ============================== -->
     <div class="breadcumb-wrapper Cover all esports & gamers needs" data-bg-src="assets/img-2/breadcumb-bg.jpg">
         <div class="container z-index-common">
             <div class="breadcumb-content">
@@ -21,8 +21,8 @@
     </div>
 
     <!--==============================
-                                    Login Area
-                                    ============================== -->
+                                            Login Area
+                                            ============================== -->
     <section class="contact-layout1 space-top contact-space">
         <div class="container">
             <div class="row justify-content-center">
@@ -35,19 +35,20 @@
                         @if (session('status'))
                             <x-user-alert type="info" :message="session('status')" />
                         @endif
+                        @if ($errors->any())
+                            <div class="py-2">
+                                @foreach ($errors->all() as $error)
+                                    <x-user-alert type="danger" :message="$error" />
+                                @endforeach
+                            </div>
+                        @endif
                         <div id="respond" class="comment-respond d-flex justify-content-center">
-                            @if ($errors->any())
-                                <div class="py-2">
-                                    @foreach ($errors->all() as $error)
-                                        <x-user-alert type="danger" :message="$error" />
-                                    @endforeach
-                                </div>
-                            @endif
                             <form action="{{ route('login') }}" method="post" class="form-style3 w-100">
+                                @csrf
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 form-group">
-                                        <input name="name" type="text" class="form-control"
-                                            placeholder="Enter Your Email" required>
+                                        <input name="email" type="text" class="form-control"
+                                            placeholder="Enter Your Email" required value="{{ old('email') }}">
                                         <i class="fa-solid fa-envelope"></i>
                                     </div>
                                 </div>
@@ -62,13 +63,13 @@
                                     <div class="col-md-10 form-group mb-3">
                                         <div class="d-flex justify-content-between">
                                             <div class="form-check ps-0">
-                                                <input class="form-check-input" type="checkbox" name="remember_me"
+                                                <input class="form-check-input" type="checkbox" name="remember"
                                                     id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Remember Me
                                                 </label>
                                             </div>
-                                            <a href="ForgotPassword.html" class="forgot-password"
+                                            <a href="{{ route('password.request') }}" class="forgot-password"
                                                 style="color: #ffffff;">Forgot Password?</a>
                                         </div>
                                     </div>
@@ -94,7 +95,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <p class="mt-2">Don't have a account?<a href="{{ route('signup') }}">&nbsp;Sign Up</a></p>
+                                <p class="mt-2">Don't have a account?<a href="{{ route('register') }}">&nbsp;Sign Up</a>
+                                </p>
                             </form>
                         </div>
                         <p class="form-messages mb-0 mt-3"></p>
@@ -111,7 +113,7 @@
             $(toggleSelector).on('click', function() {
                 $(this).toggleClass("fa-eye fa-eye-slash");
                 var input = $($(this).attr("data-toggle"));
-                
+
                 if (input.attr("type") === "password") {
                     input.attr("type", "text");
                 } else {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\VerifyController;
@@ -23,37 +22,13 @@ Route::get('email/verify/view/{id}/{hash}', [VerifyController::class, 'viewEmail
 Route::get('password/reset/view/{email}/{token}', [VerifyController::class, 'viewInBrowser'])->name('password.reset.view');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'LoginForm'])->name('login');
-
-    Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('throttle:login');
-
-    Route::get('/signup', [AuthController::class, 'signupForm'])->name('signup');
-
-    Route::post('/signup', [AuthController::class, 'signup'])->name('register-user');
-
     Route::get('/auth/google', [SocialController::class, 'redirectGoogle'])->name('google-login');
 
-    Route::post('/auth/google/callback', [SocialController::class, 'google'])->name('google-callback');
-
-    Route::get('/forgot-password', [VerifyController::class, 'forgotPass'])->name('password.request');
-
-    Route::post('/forgot-password/email', [VerifyController::class, 'resetPassLink'])->name('password.email');
-
-    Route::get('/reset-password/{token}', [VerifyController::class, 'resetPassForm'])->name('password.reset');
-
-    Route::post('/reset-password/new', [VerifyController::class, 'NewPassword'])->name('password.update');
+    Route::get('/auth/google/callback', [SocialController::class, 'google'])->name('google-callback');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/email/verify', [VerifyController::class, 'showNotice'])->name('verification.notice');
-
     Route::get('/email/verify/{id}/{hash}', [VerifyController::class, 'verify'])->middleware(['signed', 'throttle:6,1'])->withoutMiddleware(['auth'])->name('verification.verify');
-
-    Route::post('/email/verification-notification', [VerifyController::class, 'ResentEmail'])
-        ->middleware('throttle:6,1')
-        ->name('verification.send');
-
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 require __DIR__ . '/admin.php';

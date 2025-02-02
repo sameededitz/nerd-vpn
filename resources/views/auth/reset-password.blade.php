@@ -1,56 +1,99 @@
-@extends('layout.admin-guest')
-@section('admin-guest')
-    <section class="auth bg-base d-flex flex-wrap justify-content-center align-items-center">
-        <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
-            <div class="max-w-464-px mx-auto w-100">
-                <div>
-                    <h4 class="mb-12">Reset Password</h4>
-                    <p class="mb-16 text-secondary-light text-lg">
-                        {{ __('Enter your New Password') }}
-                    </p>
-                    @if (session('status'))
-                        <p class="mb-32 text-secondary-light text-lg">{{ session('status') }}</p>
-                    @endif
+@extends('layout.user-layout')
+@section('title')
+    Reset Password
+@endsection
+@section('content')
+    <!--==============================
+                                                Breadcumb
+                                                ============================== -->
+    <div class="breadcumb-wrapper Cover all esports & gamers needs"
+        data-bg-src="{{ asset('assets/img-2/breadcumb-bg.jpg') }}">
+        <div class="container z-index-common">
+            <div class="breadcumb-content">
+                <h1 class="breadcumb-title">Reset Password</h1>
+            </div>
+            <div class="breadcumb-menu-wrap">
+                <ul class="breadcumb-menu vs-btn2">
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li>Reset Password</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--==============================
+                                            Reset Password Area
+                                            ============================== -->
+    <section class="contact-layout1 space-top contact-space">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 text-center">
+                    <div class="title-area wow fadeInUp wow-animated" data-wow-delay="0.3s">
+                        <h2 class="sec-title">Reset Your Password</h2>
+                    </div>
+                    <div class="vs-comment-form">
+                        @if (session('status'))
+                            <x-user-alert type="info" :message="session('status')" />
+                        @endif
+                        @if ($errors->any())
+                            <div class="py-2">
+                                @foreach ($errors->all() as $error)
+                                    <x-user-alert type="danger" :message="$error" />
+                                @endforeach
+                            </div>
+                        @endif
+                        <p class="mb-3">Enter your new password</p>
+                        <div id="respond" class="comment-respond d-flex justify-content-center">
+                            <form action="{{ route('password.update') }}" method="post" class="form-style3 w-100 mb-3">
+                                @csrf
+                                <input type="hidden" name="token" value="{{ request()->route('token') }}">
+                                <input type="hidden" name="email" value="{{ request()->email ?? old('email') }}">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10 form-group">
+                                        <input name="password" type="password" id="password" class="form-control"
+                                            placeholder="Enter New Password" required>
+                                        <i class="fa-solid fa-eye toggle-password" data-toggle="#password"></i>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10 form-group">
+                                        <input name="password_confirmation" type="password" id="password_confirmation"
+                                            class="form-control" placeholder="Confirm New Password" required>
+                                        <i class="fa-solid fa-eye toggle-password" data-toggle="#password_confirmation"></i>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10 form-group mb-0">
+                                        <button class="vs-btn w-100 justify-content-center" type="submit">Reset
+                                            Password</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <p class="form-messages mb-0 mt-3"></p>
                 </div>
-                @if ($errors->any())
-                    <div class="py-2">
-                        @foreach ($errors->all() as $error)
-                            <x-alert type="danger" :message="$error" />
-                        @endforeach
-                    </div>
-                @endif
-                <form action="{{ route('password.update') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="token" value="{{ $token }}">
-                    <input type="hidden" name="email" value="{{ $email }}">
-                    <div class="position-relative mb-20">
-                        <div class="icon-field">
-                            <span class="icon top-50 translate-middle-y">
-                                <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
-                            </span>
-                            <input type="password" name="password" class="form-control h-56-px bg-neutral-50 radius-12"
-                                id="your-password" placeholder="Password">
-                        </div>
-                        <span
-                            class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
-                            data-toggle="#your-password"></span>
-                    </div>
-                    <div class="position-relative mb-20">
-                        <div class="icon-field">
-                            <span class="icon top-50 translate-middle-y">
-                                <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
-                            </span>
-                            <input type="password" name="password_confirmation"
-                                class="form-control h-56-px bg-neutral-50 radius-12" id="password" placeholder="Confirm Password">
-                        </div>
-                        <span
-                            class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
-                            data-toggle="#password"></span>
-                    </div>
-                    <button type="submit"
-                        class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32">Reset Password</button>
-                </form>
             </div>
         </div>
     </section>
+@endsection
+@section('scripts')
+    <script>
+        // ================== Password Show Hide Js Start ==========
+        function initializePasswordToggle(toggleSelector) {
+            $(toggleSelector).on('click', function() {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $($(this).attr("data-toggle"));
+
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
+        }
+        // Call the function
+        initializePasswordToggle('.toggle-password');
+        // ========================= Password Show Hide Js End ===========================
+    </script>
 @endsection

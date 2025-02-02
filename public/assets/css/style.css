@@ -177,7 +177,7 @@ a {
 }
 
 a:hover {
-  color: var(--title-color);
+  color: var(--light-color);
 }
 
 a:active,

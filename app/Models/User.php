@@ -34,7 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'apple_id',
         'avatar',
         'registration_date',
-        'device_limit',
     ];
 
     /**

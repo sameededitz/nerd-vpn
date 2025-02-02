@@ -18,27 +18,6 @@ use Illuminate\Support\Str;
 
 class VerifyController extends Controller
 {
-    public function EmailPrompt(Request $request)
-    {
-        return $request->user()->hasVerifiedEmail()
-            ? redirect()->route('login')
-            : view('auth.login');
-    }
-
-    public function showNotice()
-    {
-        return view('auth.verify-email');
-    }
-
-    public function ResentEmail(Request $request)
-    {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('login');
-        }
-        $request->user()->sendEmailVerificationNotification();
-        return back()->with('status', 'A new verification link has been sent to the email address you provided during registration.');
-    }
-
     public function verify(Request $request)
     {
         $user = Auth::user() ? Auth::user() : User::findOrFail($request->route('id'));
@@ -66,27 +45,7 @@ class VerifyController extends Controller
             ], 200)
             : view('auth.verified-email');
     }
-
-    public function forgotPass()
-    {
-        return view('auth.forgot-password');
-    }
-
-    public function resetPassLink(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
-    }
-
+    
     public function resetPassForm(Request $request, $token = null)
     {
         return view('auth.reset-password')->with([

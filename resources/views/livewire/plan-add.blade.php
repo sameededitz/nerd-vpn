@@ -34,6 +34,11 @@
                     <option value="year">Year</option>
                 </select>
             </div>
+            <div class="col-12">
+                <label class="form-label">Stipe Plan ID</label>
+                <input type="text" wire:model.blur="stripe_plan_id" class="form-control"
+                    placeholder="stripe_plan_id">
+            </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary-600">Add</button>
             </div>

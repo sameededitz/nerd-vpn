@@ -6,7 +6,6 @@ use App\Http\Controllers\VerifyController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/optimize', function () {
     Artisan::call('optimize:clear');
@@ -17,6 +16,10 @@ Route::get('/storage-link', function () {
     Artisan::call('storage:link');
     return 'Linked';
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 
 Route::get('email/verify/view/{id}/{hash}', [VerifyController::class, 'viewEmail'])->name('email.verification.view');
 Route::get('password/reset/view/{email}/{token}', [VerifyController::class, 'viewInBrowser'])->name('password.reset.view');

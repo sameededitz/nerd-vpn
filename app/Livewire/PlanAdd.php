@@ -25,6 +25,9 @@ class PlanAdd extends Component
     #[Validate]
     public $duration_unit;
 
+    #[Validate]
+    public $stripe_plan_id;
+
     protected function rules()
     {
         return [
@@ -33,6 +36,7 @@ class PlanAdd extends Component
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'duration_unit' => 'required|in:day,week,month,year',
+            'stripe_plan_id' => 'required|string',
         ];
     }
 
@@ -45,6 +49,7 @@ class PlanAdd extends Component
             'price' => $this->price,
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
+            'stripe_plan_id' => $this->stripe_plan_id,
         ]);
 
         return redirect()->route('all-plans')->with([

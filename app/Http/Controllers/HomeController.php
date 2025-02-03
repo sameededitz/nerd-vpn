@@ -11,6 +11,11 @@ class HomeController extends Controller
         return view('home.home');
     }
 
+    public function pricing()
+    {
+        return view('home.pricing');
+    }
+
     public function test()
     {
         return view('auth.auth');

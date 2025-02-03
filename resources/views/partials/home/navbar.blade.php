@@ -78,7 +78,7 @@
 
                                                 </li>
                                                 <li class=" mega-menu-wrap">
-                                                    <a href="price.html">Price</a>
+                                                    <a href="{{ route('pricing') }}">Price</a>
                                                 </li>
                                                 <li>
                                                     <a href="contact.html">Contact</a>

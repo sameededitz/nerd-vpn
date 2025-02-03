@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->integer('duration');
             $table->enum('duration_unit', ['day', 'week', 'month', 'year'])->default('day');
+            $table->string('stripe_plan_id')->nullable();
             $table->timestamps();
         });
     }

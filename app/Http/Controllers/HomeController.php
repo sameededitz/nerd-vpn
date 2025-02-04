@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,11 +14,12 @@ class HomeController extends Controller
 
     public function pricing()
     {
-        return view('home.pricing');
+        $plans = Plan::all();
+        return view('home.pricing', compact('plans'));
     }
 
     public function test()
     {
-        return view('auth.auth');
+        return view('home.success');
     }
 }

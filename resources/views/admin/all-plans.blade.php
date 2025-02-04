@@ -39,7 +39,6 @@
                         <th scope="col">Price</th>
                         <th scope="col">Description</th>
                         <th scope="col">Duration</th>
-                        <th scope="col">Type</th>
                         <th scope="col">Time</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -52,7 +51,6 @@
                             <td>${{ $plan->price }}</td>
                             <td>{{ $plan->description }}</td>
                             <td> {{ $plan->duration }} {{ Str::title($plan->duration_unit) }}</td>
-                            <td>{{ Str::title(str_replace('_', ' ', $plan->type)) }}</td>
                             <td>C:{{ $plan->created_at->diffForHumans() }}<br>U:{{ $plan->updated_at->diffForHumans() }}
                             </td>
                             <td>

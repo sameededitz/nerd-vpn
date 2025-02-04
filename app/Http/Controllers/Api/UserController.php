@@ -17,7 +17,6 @@ class UserController extends Controller
         return response()->json([
             'status' => true,
             'user' => $user,
-            'device_limit' => $user->getSubscriptionDeviceLimit()
         ], 200);
     }
 }

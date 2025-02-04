@@ -47,7 +47,6 @@ class PurchaseController extends Controller
             'message' => 'Purchase created successfully! Activation code sent to your email.',
         ], 201);
     }
-
     public function Status()
     {
         $user = Auth::user();

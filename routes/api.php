@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
-    Route::post('/signup', [AuthController::class, 'signup'])->name('api.login');
+    Route::post('/signup', [AuthController::class, 'signup'])->name('api.signup');
 
-    Route::post('/login/google', [SocialController::class, 'LoginGoogle'])->name('api.login.google');
+    Route::post('/login/google', [SocialController::class, 'handleGoogleCallback'])->name('api.login.google');
 
-    Route::post('/login/apple', [SocialController::class, 'loginApple'])->name('api.login.apple');
+    Route::post('/login/apple', [SocialController::class, 'handleAppleCallback'])->name('api.login.apple');
 
     Route::post('/reset-password', [VerifyController::class, 'sendResetLink'])->name('api.reset.password');
 });
@@ -33,14 +33,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/purchase/status', [PurchaseController::class, 'Status'])->name('api.purchase');
 
     Route::post('/purchase/redeem', [PurchaseController::class, 'redeemActivationCode'])->name('api.purchase.verify');
-
-    Route::post('/user/register-device', [UserController::class, 'registerDevice'])->name('api.register.device');
-
-    Route::post('/user/devices', [UserController::class, 'AllDevices'])->name('api.get.devices');
-
-    Route::post('/user/check-device', [UserController::class, 'checkDevice'])->name('api.check.device');
-
-    Route::delete('/user/device/delete', [UserController::class, 'deleteDevice'])->name('api.delete.device');
 });
 
 Route::post('/email/resend-verification', [VerifyController::class, 'resendVerify'])->name('api.verify.resend');

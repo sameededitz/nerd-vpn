@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--==============================
-        Breadcumb
-        ============================== -->
+                                        Breadcumb
+                                        ============================== -->
     <div class="breadcumb-wrapper Cover all esports & gamers needs" data-bg-src="assets/img-2/breadcumb-bg.jpg">
         <div class="container z-index-common">
             <div class="breadcumb-content">
@@ -20,8 +20,8 @@
         </div>
     </div>
     <!--==============================
-        Price Area
-        ============================== -->
+                                        Price Area
+                                        ============================== -->
     <section class="space">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-lg-between justify-content-center align-items-center">
@@ -53,165 +53,71 @@
                     tabindex="0">
                     <div id="monthly" data-tab-content class="package-list ">
                         <div class="row g-5">
-                            <div class="col-xl-4 col-md-6">
-                                <div class="package-wraper">
-                                    <div class="package-style1">
-                                        <div class="package-top">
-                                            <div class="package-icon"><img src="assets/img/icon/price-icon1.png"
-                                                    alt="icon"></div>
-                                            <h3 class="package-name h4">Bronze Plan</h3>
-                                            <p class="package-text">What you will get in this plan</p>
-                                            <p class="package-price">$29.99<span class="duration">/month</span></p>
-                                        </div>
-                                        <div class="package-body">
-                                            <div class="notice">
-                                                <span class="package-notice"><i class="fas fa-sack-dollar"></i>30 Day
-                                                    Money-Back Guarantee</span>
+                            @forelse ($plans as $plan)
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="package-wraper">
+                                        <div class="package-style1">
+                                            <div class="package-top">
+                                                <div class="package-icon"><img src="assets/img/icon/price-icon2.png"
+                                                        alt="icon"></div>
+                                                <h3 class="package-name h4"> {{ $plan->name }} </h3>
+                                                <p class="package-text">What you will get in this plan</p>
+                                                <p class="package-price">${{ $plan->price }}<span class="duration">/
+                                                        {{ $plan->duration }} {{ Str::title($plan->duration_unit) }}</span>
+                                                </p>
                                             </div>
-                                            <div class="list-style1">
-                                                <ul class="list-unstyled">
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Anti-malware &
-                                                        browsing protection</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Ad and tracker
-                                                        blocker</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Secure,
-                                                        high-speed VPN</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Password manager
-                                                        & Data Breach</li>
-                                                    <li><span class="icon shield-cross-icon"><i
-                                                                class="fa-solid fa-shield"></i><i
-                                                                class="fa-solid fa-xmark icon2"></i></span>1 TB of encrypted
-                                                        cloud storage</li>
-                                                </ul>
-                                                <div class="shep">
-                                                    <img src="assets/img/shep/price-shape1.png" alt="shep">
+                                            <div class="package-body">
+                                                <div class="notice">
+                                                    <span class="package-notice"><i class="fas fa-sack-dollar"></i>30 Day
+                                                        Money-Back Guarantee</span>
+                                                </div>
+                                                <div class="list-style1">
+                                                    <ul class="list-unstyled">
+                                                        <li><span class="icon"><i
+                                                                    class="fa-solid fa-shield-check"></i></span>Anti-malware
+                                                            &
+                                                            browsing protection</li>
+                                                        <li><span class="icon"><i
+                                                                    class="fa-solid fa-shield-check"></i></span>Ad and
+                                                            tracker
+                                                            blocker</li>
+                                                        <li><span class="icon"><i
+                                                                    class="fa-solid fa-shield-check"></i></span>Secure,
+                                                            high-speed VPN</li>
+                                                        <li><span class="icon"><i
+                                                                    class="fa-solid fa-shield-check"></i></span>Password
+                                                            manager & Data Breach</li>
+                                                        <li><span class="icon shield-cross-icon"><i
+                                                                    class="fa-solid fa-shield"></i><i
+                                                                    class="fa-solid fa-xmark icon2"></i></span>1 TB of
+                                                            encrypted cloud storage</li>
+                                                    </ul>
+                                                    <div class="shep">
+                                                        <img src="assets/img/shep/price-shape2.png" alt="shep">
+                                                    </div>
+                                                </div>
+                                                <div class="price-btn">
+                                                    @if (Auth::check())
+                                                        <a href="{{ route('checkout', $plan->slug) }}"
+                                                            class="vs-btn">Subscribe</a>
+                                                    @else
+                                                        <a href="{{ route('login') }}" class="vs-btn">Login to Subscribe</a>
+                                                    @endif
                                                 </div>
                                             </div>
-                                            <div class="price-btn">
-                                                <a href="price.html" class="vs-btn">Get Start</a>
+                                            <div class="shep-btn">
+                                                <svg width="150" height="150" viewBox="0 0 111 111" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M0 0C19.33 0 35 15.67 35 35V41C35 50.33 50.67 76 75 76H76C95.33 76 111 91.67 111 111V0H0Z"
+                                                        fill="none"></path>
+                                                </svg>
                                             </div>
-                                        </div>
-                                        <div class="shep-btn">
-                                            <svg width="150" height="150" viewBox="0 0 111 111" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M0 0C19.33 0 35 15.67 35 35V41C35 50.33 50.67 76 75 76H76C95.33 76 111 91.67 111 111V0H0Z"
-                                                    fill="none"></path>
-                                            </svg>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="package-wraper">
-                                    <div class="package-style1 active">
-                                        <div class="package-top">
-                                            <div class="package-icon"><img src="assets/img/icon/price-icon2.png"
-                                                    alt="icon"></div>
-                                            <h3 class="package-name h4">Silver Plan</h3>
-                                            <p class="package-text">What you will get in this plan</p>
-                                            <p class="package-price">$29.99<span class="duration">/month</span></p>
-                                        </div>
-                                        <div class="package-body">
-                                            <div class="notice">
-                                                <span class="package-notice"><i class="fas fa-sack-dollar"></i>30 Day
-                                                    Money-Back Guarantee</span>
-                                            </div>
-                                            <div class="list-style1">
-                                                <ul class="list-unstyled">
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Anti-malware &
-                                                        browsing protection</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Ad and tracker
-                                                        blocker</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Secure,
-                                                        high-speed VPN</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Password
-                                                        manager & Data Breach</li>
-                                                    <li><span class="icon shield-cross-icon"><i
-                                                                class="fa-solid fa-shield"></i><i
-                                                                class="fa-solid fa-xmark icon2"></i></span>1 TB of
-                                                        encrypted cloud storage</li>
-                                                </ul>
-                                                <div class="shep">
-                                                    <img src="assets/img/shep/price-shape2.png" alt="shep">
-                                                </div>
-                                            </div>
-                                            <div class="price-btn">
-                                                <a href="price.html" class="vs-btn">Get Start</a>
-                                            </div>
-                                        </div>
-                                        <div class="shep-btn">
-                                            <svg width="150" height="150" viewBox="0 0 111 111" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M0 0C19.33 0 35 15.67 35 35V41C35 50.33 50.67 76 75 76H76C95.33 76 111 91.67 111 111V0H0Z"
-                                                    fill="none"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="package-wraper">
-                                    <div class="package-style1">
-                                        <div class="package-top">
-                                            <div class="package-icon"><img src="assets/img/icon/price-icon3.png"
-                                                    alt="icon"></div>
-                                            <h3 class="package-name h4">Gold Plan</h3>
-                                            <p class="package-text">What you will get in this plan</p>
-                                            <p class="package-price">$29.99<span class="duration">/month</span></p>
-                                        </div>
-                                        <div class="package-body">
-                                            <div class="notice">
-                                                <span class="package-notice"><i class="fas fa-sack-dollar"></i>30 Day
-                                                    Money-Back Guarantee</span>
-                                            </div>
-                                            <div class="list-style1">
-                                                <ul class="list-unstyled">
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Anti-malware &
-                                                        browsing protection</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Ad and tracker
-                                                        blocker</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Secure,
-                                                        high-speed VPN</li>
-                                                    <li><span class="icon"><i
-                                                                class="fa-solid fa-shield-check"></i></span>Password
-                                                        manager & Data Breach</li>
-                                                    <li><span class="icon shield-cross-icon"><i
-                                                                class="fa-solid fa-shield"></i><i
-                                                                class="fa-solid fa-xmark icon2"></i></span>1 TB of
-                                                        encrypted cloud storage</li>
-                                                </ul>
-                                                <div class="shep">
-                                                    <img src="assets/img/shep/price-shape1.png" alt="shep">
-                                                </div>
-                                            </div>
-                                            <div class="price-btn">
-                                                <a href="price.html" class="vs-btn">Get Start</a>
-                                            </div>
-                                        </div>
-                                        <div class="shep-btn">
-                                            <svg width="150" height="150" viewBox="0 0 111 111" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M0 0C19.33 0 35 15.67 35 35V41C35 50.33 50.67 76 75 76H76C95.33 76 111 91.67 111 111V0H0Z"
-                                                    fill="none"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -385,8 +291,8 @@
         </div>
     </section>
     <!--==============================
-        Faq Area
-        ============================== -->
+                                        Faq Area
+                                        ============================== -->
     <section class="faq-layout1 space mt-5">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">

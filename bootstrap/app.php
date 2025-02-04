@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'verifyRole' => VerifyRole::class
         ]);
+        $middleware->validateCsrfTokens([
+            'stripe/*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $exception, Request $request) {

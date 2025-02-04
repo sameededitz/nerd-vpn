@@ -99,7 +99,6 @@
                                 </p>
                             </form>
                         </div>
-                        <p class="form-messages mb-0 mt-3"></p>
                     </div>
                 </div>
             </div>

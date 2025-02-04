@@ -45,3 +45,13 @@ Route::get('/storage-link', function () {
     Artisan::call('storage:link');
     return 'Linked';
 });
+
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return 'Migrated';
+});
+
+Route::get('/migrate-fresh', function () {
+    Artisan::call('migrate:fresh');
+    return 'Migrated';
+});

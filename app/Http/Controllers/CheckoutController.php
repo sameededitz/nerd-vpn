@@ -30,6 +30,7 @@ class CheckoutController extends Controller
                     'cancel_url' => route('checkout.cancel'),
                     'metadata' => [
                         'plan_id' => $plan->id,
+                        'lifetime' => true
                     ],
                 ]);
             } else {
@@ -70,7 +71,6 @@ class CheckoutController extends Controller
             ]);
         }
 
-        DB::beginTransaction();
         try {
             $session = Cashier::stripe()->checkout->sessions->retrieve($sessionId);
 
@@ -83,50 +83,36 @@ class CheckoutController extends Controller
             if (!$planId) {
                 return redirect()->route('checkout.cancel');
             }
+            $plan = Plan::find($planId);
 
-            $plan = Plan::findOrFail($planId);
+            if (!$plan) {
+                return redirect()->route('checkout.cancel');
+            }
 
             /** @var \App\Models\User $user **/
             $user = Auth::user();
 
-            $purchase = $user->purchases()
-                ->where('is_active', true)
-                ->whereNotNull('expires_at')
-                ->where('expires_at', '>', now())
-                ->first();
-
-            $expiresAt = $this->calculateExpirationDate($plan, $purchase);
-
-            if ($purchase) {
-                $purchase->update([
-                    'plan_id' => $plan->id,
-                    'expires_at' => $expiresAt
-                ]);
-            } else {
-                $purchase = $user->purchases()->create([
-                    'plan_id' => $plan->id,
-                    'started_at' => now(),
-                    'expires_at' => $expiresAt,
-                    'is_active' => true,
-                ]);
-            }
-
             StripeCheckoutSession::create([
                 'session_id' => $sessionId,
                 'user_id' => $user->id,
-                'plan_id' => $plan->id,
+                'plan_id' => $plan->id ?? null,
             ]);
 
             session()->forget('checkout_session_id');
-            DB::commit();
+
+            // Retrieve the purchase record created/updated by the webhook listener.
+            // This assumes that the webhook listener has already processed the session and updated the DB.
+            $purchase = $user->purchases()
+                ->where('plan_id', $plan->id)
+                ->where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->first();
 
             return view('home.success', compact('plan', 'purchase'));
         } catch (ApiErrorException $e) {
-            DB::rollBack();
             Log::error('Stripe API error: ' . $e->getMessage());
             return redirect()->route('checkout.cancel')->with('error', 'An error occurred while processing your payment.');
         } catch (\Exception $e) {
-            DB::rollBack();
             Log::error('Error during checkout success: ' . $e->getMessage());
             return redirect()->route('checkout.cancel')->with('error', 'An error occurred while processing your payment.');
         }
@@ -136,9 +122,6 @@ class CheckoutController extends Controller
     {
         $sessionId = session('checkout_session_id');
 
-        if ($sessionId) {
-            StripeCheckoutSession::where('session_id', $sessionId)->delete();
-        }
         if (!$sessionId) {
             // If no session ID is found, redirect to the pricing page
             return redirect()->route('pricing')->with([
@@ -150,6 +133,11 @@ class CheckoutController extends Controller
         // Clear the session ID from the user's session
         session()->forget('checkout_session_id');
         return view('home.cancel');
+    }
+
+    public function billingPortal(Request $request)
+    {
+        return $request->user()->redirectToBillingPortal(route('home'));
     }
 
     protected function calculateExpirationDate(Plan $plan, $purchase = null)

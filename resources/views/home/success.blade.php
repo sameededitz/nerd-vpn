@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--==============================
-                                                Success Area
-                                                ============================== -->
+                                                    Success Area
+                                                    ============================== -->
     <section class="contact-layout1 space-top contact-space">
         <div class="container">
             <div class="row justify-content-center">
@@ -20,11 +20,18 @@
                         @endif
                         <div id="respond" class="comment-respond d-flex justify-content-center flex-column">
                             <h4 class="sec-title">You're Premium Now</h4>
-                            <p class="mb-4">
-                                Your subscription will automatically renew on
-                                {{ $purchase->expires_at->toDateString() }} and you'll be charged
-                                ${{ number_format($plan->price, 2) }} for the next billing cycle.
-                            </p>
+                            @if ($purchase->lifetime)
+                                <p class="mb-4">
+                                    Your lifetime purchase is now active, and you have unlimited access to all the features
+                                    of {{ config('app.name') }}.
+                                </p>
+                            @else
+                                <p class="mb-4">
+                                    Your subscription will automatically renew on
+                                    {{ $purchase->expires_at->toDateString() }} and you'll be charged
+                                    ${{ number_format($plan->price, 2) }} for the next billing cycle.
+                                </p>
+                            @endif
                             <p class="mb-4">Now you can access all the features of {{ config('app.name') }}</p>
                             <button class="vs-btn w-100 justify-content-center" type="submit">Back to Home</button>
                         </div>

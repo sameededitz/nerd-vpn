@@ -40,7 +40,7 @@ class PlanAdd extends Component
             'duration' => 'required|numeric',
             'duration_unit' => 'required|in:day,week,month,year',
             'stripe_plan_id' => 'required|string',
-            'lifetime' => 'required|boolean',
+            'lifetime' => 'nullable|boolean',
         ];
     }
 

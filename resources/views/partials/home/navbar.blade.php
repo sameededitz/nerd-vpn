@@ -27,10 +27,12 @@
                                         <li><a href=""><i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
                                             </a></li>
                                         <li>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
                                                 @csrf
                                             </form>
-                                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 <i class="fa-solid fa-lock"></i>Logout
                                             </a>
                                         </li>
@@ -83,6 +85,11 @@
                                                 <li>
                                                     <a href="contact.html">Contact</a>
                                                 </li>
+                                                @if (Auth::check())
+                                                    <li>
+                                                        <a href="{{ route('billing-portal') }}">Billing</a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </nav>
                                     </div>
@@ -90,21 +97,6 @@
                                         <button class="vs-menu-toggle d-inline-block">
                                             <i class="fal fa-bars"></i>
                                         </button>
-                                    </div>
-                                    <div class="col-auto d-xl-block d-none">
-                                        <div class="header-icons">
-                                            <form class="header-search">
-                                                <button class="searchBoxTggler" aria-label="search-button">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </button>
-                                                <input type="text" placeholder="Search Here...">
-                                            </form>
-                                            <a href="#" class="icon-btn sideMenuToggler"><i
-                                                    class="fa-solid fa-bars"></i></a>
-                                            <a href="#" class="icon-btn">
-                                                <i class="fa-solid fa-globe"></i>
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

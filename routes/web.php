@@ -14,6 +14,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     
     Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
+
+    Route::get('/billing-portal', [CheckoutController::class, 'billingPortal'])->name('billing-portal');
     
     Route::get('/checkout/{plan:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
 });

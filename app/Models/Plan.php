@@ -20,6 +20,7 @@ class Plan extends Model
         'duration',
         'duration_unit',
         'stripe_plan_id',
+        'lifetime',
     ];
 
     public function purchases(): HasMany

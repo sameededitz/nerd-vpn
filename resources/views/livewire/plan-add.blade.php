@@ -39,6 +39,14 @@
                 <input type="text" wire:model.blur="stripe_plan_id" class="form-control"
                     placeholder="stripe_plan_id">
             </div>
+            <div class="col-12">
+                <label class="form-label"> Is Lifetime </label>
+                <div class="form-switch switch-primary d-flex align-items-center gap-3">
+                    <input class="form-check-input" wire:model.blur="lifetime" type="checkbox" role="switch" id="switch1" checked="">
+                    <label class="form-check-label line-height-1 fw-medium text-secondary-light" for="switch1">LifeTime Plan</label>
+                </div>
+                <small>If you select this option, the plan will be lifetime and Specify such a long duration</small>
+            </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary-600">Add</button>
             </div>

@@ -31,7 +31,8 @@ class RemoveExpiredPurchases extends Command
         $this->info('Starting to remove expired purchases...');
 
         // Fetch and delete expired purchases
-        $expiredPurchases = Purchase::where('expires_at', '<', now())->delete();
+        $expiredPurchases = Purchase::whereNotNull('expires_at')
+            ->where('expires_at', '<', now())->delete();
 
         // Log the result
         if ($expiredPurchases) {

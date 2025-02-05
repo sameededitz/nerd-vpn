@@ -28,6 +28,9 @@ class PlanEdit extends Component
     #[Validate]
     public $stripe_plan_id;
 
+    #[Validate]
+    public $lifetime;
+
     protected function rules()
     {
         return [
@@ -37,6 +40,7 @@ class PlanEdit extends Component
             'duration' => 'required|numeric',
             'duration_unit' => 'required|in:day,week,month,year',
             'stripe_plan_id' => 'required|string',
+            'lifetime' => 'required|boolean',
         ];
     }
 
@@ -49,6 +53,7 @@ class PlanEdit extends Component
         $this->duration = $plan->duration;
         $this->duration_unit = $plan->duration_unit;
         $this->stripe_plan_id = $plan->stripe_plan_id;
+        $this->lifetime = $plan->lifetime;
     }
 
     public function update()
@@ -61,6 +66,7 @@ class PlanEdit extends Component
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
             'stripe_plan_id' => $this->stripe_plan_id,
+            'lifetime' => $this->lifetime,
         ]);
         return redirect()->route('all-plans')->with([
             'status' => 'success',

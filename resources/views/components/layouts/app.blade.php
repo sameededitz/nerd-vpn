@@ -3,15 +3,15 @@
 <html lang="en" data-theme="light">
 
 <head>
-    @include('partials.admin-head')
+    @include('partials.admin.admin-head')
     @livewireStyles
 </head>
 
 <body>
-    @include('partials.admin-sidebar')
+    @include('partials.admin.admin-sidebar')
 
     <main class="dashboard-main">
-        @include('partials.admin-navbar')
+        @include('partials.admin.admin-navbar')
 
         <div class="dashboard-main-body">
             {{ $slot }}
@@ -30,7 +30,7 @@
         </footer>
     </main>
 
-    @include('partials.admin-scripts')
+    @include('partials.admin.admin-scripts')
 
     <script>
         // ================== Password Show Hide Js Start ==========

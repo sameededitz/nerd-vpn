@@ -24,14 +24,24 @@ class CheckoutController extends Controller
         $user = Auth::user();
 
         try {
-            $checkoutSession = $user->newSubscription('default', $plan->stripe_plan_id)
-                ->checkout([
+            if ($plan->lifetime) {
+                $checkoutSession = $user->checkout($plan->stripe_plan_id, [
                     'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}', // Route to redirect to after a successful payment
                     'cancel_url' => route('checkout.cancel'),
                     'metadata' => [
                         'plan_id' => $plan->id,
                     ],
                 ]);
+            } else {
+                $checkoutSession = $user->newSubscription('default', $plan->stripe_plan_id)
+                    ->checkout([
+                        'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}', // Route to redirect to after a successful payment
+                        'cancel_url' => route('checkout.cancel'),
+                        'metadata' => [
+                            'plan_id' => $plan->id,
+                        ],
+                    ]);
+            }
 
             session(['checkout_session_id' => $checkoutSession->id]);
 
@@ -81,13 +91,17 @@ class CheckoutController extends Controller
 
             $purchase = $user->purchases()
                 ->where('is_active', true)
+                ->whereNotNull('expires_at')
                 ->where('expires_at', '>', now())
                 ->first();
 
             $expiresAt = $this->calculateExpirationDate($plan, $purchase);
 
             if ($purchase) {
-                $purchase->update(['expires_at' => $expiresAt]);
+                $purchase->update([
+                    'plan_id' => $plan->id,
+                    'expires_at' => $expiresAt
+                ]);
             } else {
                 $purchase = $user->purchases()->create([
                     'plan_id' => $plan->id,
@@ -103,6 +117,7 @@ class CheckoutController extends Controller
                 'plan_id' => $plan->id,
             ]);
 
+            session()->forget('checkout_session_id');
             DB::commit();
 
             return view('home.success', compact('plan', 'purchase'));
@@ -124,6 +139,16 @@ class CheckoutController extends Controller
         if ($sessionId) {
             StripeCheckoutSession::where('session_id', $sessionId)->delete();
         }
+        if (!$sessionId) {
+            // If no session ID is found, redirect to the pricing page
+            return redirect()->route('pricing')->with([
+                'status' => 'error',
+                'message' => 'No active checkout session found.',
+            ]);
+        }
+
+        // Clear the session ID from the user's session
+        session()->forget('checkout_session_id');
         return view('home.cancel');
     }
 

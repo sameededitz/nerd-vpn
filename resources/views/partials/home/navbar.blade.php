@@ -6,11 +6,10 @@
                     <div class="col-auto">
                         <div class="header-links">
                             <ul>
-                                <li><i class="fas fa-tv"></i>Your IP : 414.569.54.99</li>
-                                <li><i class="fas fa-map-marker-alt"></i><a href="mailto:info@example.com">Your
-                                        Location : Bangladesh</a></li>
-                                <li><i class="fas fa-shield-check"></i>Your Status : Protected</li>
-                            </ul>
+                                <li><i class="fas fa-tv"></i>Your IP : {{ $userIp }}</li>
+                                <li><i class="fas fa-map-marker-alt"></i>Your Location : {{ $userLocation }}</li>
+                                <li><i class="fas fa-shield-check"></i>Your Status : UnProtected</li>
+                            </ul>                            
                         </div>
                     </div>
                     <div class="col-auto">
@@ -24,7 +23,8 @@
                                 </div>
                                 <ul>
                                     @if (Auth::check())
-                                        <li><a href=""><i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
+                                        <li><a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i>
+                                                {{ Auth::user()->name }}
                                             </a></li>
                                         <li>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -70,24 +70,20 @@
                                         <nav class="main-menu menu-style1 d-none d-lg-block">
                                             <ul>
                                                 <li class="#">
-                                                    <a href="index.html">Home</a>
+                                                    <a href="{{ route('home') }}">Home</a>
                                                 </li>
                                                 <li>
-                                                    <a href="about.html">About Us</a>
-                                                </li>
-                                                <li class="#">
-                                                    <a href="#">Features</a>
-
+                                                    <a href="{{ route('about') }}">About Us</a>
                                                 </li>
                                                 <li class=" mega-menu-wrap">
-                                                    <a href="{{ route('pricing') }}">Price</a>
+                                                    <a href="{{ route('pricing') }}">Pricing</a>
                                                 </li>
                                                 <li>
                                                     <a href="contact.html">Contact</a>
                                                 </li>
-                                                @if (Auth::check())
+                                                @if (Auth::check() && Auth::user()->isPremium())
                                                     <li>
-                                                        <a href="{{ route('billing-portal') }}">Billing</a>
+                                                        <a href="{{ route('billing') }}">Billing</a>
                                                     </li>
                                                 @endif
                                             </ul>

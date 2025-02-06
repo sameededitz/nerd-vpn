@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\CleanProcessedWebhooks;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -11,3 +12,5 @@ Artisan::command('inspire', function () {
 Schedule::command('auth:clear-resets')->everyTwoHours();
 
 Schedule::command('purchases:remove-expired')->daily();
+
+Schedule::command(CleanProcessedWebhooks::class)->daily();

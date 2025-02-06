@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\Plan;
+use App\Models\ProcessedWebhook;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,6 +16,7 @@ class StripeEventListener
 {
     /**
      * Create the event listener.
+     * stripe listen --forward-to http://127.0.0.1:8000/stripe/webhook
      */
     public function __construct()
     {
@@ -27,8 +29,21 @@ class StripeEventListener
     public function handle(WebhookReceived $event)
     {
         $payload = $event->payload;
-        Log::info('Stripe event received:', $payload);
+        // Log::info('Stripe event received:', $payload);
         $eventType = $payload['type'] ?? null;
+
+        $eventId = $payload['id'] ?? null;
+        if ($eventId && ProcessedWebhook::where('event_id', $eventId)->exists()) {
+            Log::channel('stripe')->info("Duplicate event received: {$eventId}. Skipping processing.");
+            return;
+        }
+
+        // Store the event as processed, and set it to expire in 12 hours.
+        ProcessedWebhook::create([
+            'event_id'   => $eventId,
+            'event_type' => $eventType,
+            'expires_at' => now()->addHours(12),
+        ]);
 
         // We only care about subscription events.
         if (!in_array($eventType, [
@@ -50,12 +65,8 @@ class StripeEventListener
             return;
         }
 
-        if (in_array($eventType, [
-            'customer.subscription.deleted'
-        ])) {
-            if ($eventType === 'customer.subscription.deleted') {
-                $this->handleSubscriptionDeleted($payload);
-            }
+        if ($eventType === 'customer.subscription.deleted') {
+            $this->handleSubscriptionDeleted($payload);
         }
     }
 
@@ -64,14 +75,14 @@ class StripeEventListener
         $session = $payload['data']['object'];
         $stripeCustomerId = $session['customer'] ?? null;
         if (!$stripeCustomerId) {
-            Log::error("Checkout session completed event missing customer ID.");
+            Log::channel('stripe')->error("Checkout session completed event missing customer ID.");
             return;
         }
 
         /** @var User $user **/
         $user = User::where('stripe_id', $stripeCustomerId)->first();
         if (!$user) {
-            Log::error("User not found for Stripe customer ID: {$stripeCustomerId}");
+            Log::channel('stripe')->error("User not found for Stripe customer ID: {$stripeCustomerId}");
             return;
         }
 
@@ -79,14 +90,14 @@ class StripeEventListener
         $isLifetime = isset($session['metadata']['lifetime']) && $session['metadata']['lifetime'] === 'true';
         $planId = $session['metadata']['plan_id'] ?? null;
         if (!$planId) {
-            Log::error("Checkout session completed missing plan_id in metadata.");
+            Log::channel('stripe')->error("Checkout session completed missing plan_id in metadata.");
             return;
         }
 
         // Look up the plan by its ID (or using a unique identifier you stored).
         $plan = Plan::find($planId);
         if (!$plan) {
-            Log::error("Plan not found for plan_id: {$planId}");
+            Log::channel('stripe')->error("Plan not found for plan_id: {$planId}");
             return;
         }
 
@@ -108,12 +119,14 @@ class StripeEventListener
                 ->first();
             if ($purchase) {
                 $newExpiry = $this->calculateExpirationDate($plan, $purchase);
+                Log::info('New Updated expiry date: ' . $newExpiry);
                 $purchase->update([
                     'plan_id' => $plan->id,
                     'expires_at' => $newExpiry,
                 ]);
             } else {
                 $newExpiry = $this->calculateExpirationDate($plan);
+                Log::info('New Created expiry date: ' . $newExpiry);
                 $purchase = $user->purchases()->create([
                     'is_active' => true,
                     'is_lifetime' => false,
@@ -142,34 +155,34 @@ class StripeEventListener
         /** @var User $user */
         $user = User::where('stripe_id', $stripeCustomerId)->first();
         if (!$user) {
-            Log::error("User not found for Stripe customer ID: {$stripeCustomerId}");
+            Log::channel('stripe')->error("User not found for Stripe customer ID: {$stripeCustomerId}");
             return;
         }
 
         // Find the subscription ID
         $subscriptionId = $invoice['subscription'] ?? null;
         if (!$subscriptionId) {
-            Log::error("Invoice paid event missing subscription ID.");
+            Log::channel('stripe')->error("Invoice paid event missing subscription ID.");
             return;
         }
 
         // Retrieve the latest subscription data from Stripe
         $subscription = Cashier::stripe()->subscriptions->retrieve($subscriptionId);
         if (!$subscription) {
-            Log::error("No subscription found for ID: {$subscriptionId}");
+            Log::channel('stripe')->error("No subscription found for ID: {$subscriptionId}");
             return;
         }
 
         // Get the plan (price ID) from the subscription
         $priceId = $subscription['items']['data'][0]['plan']['id'] ?? null;
         if (!$priceId) {
-            Log::error("No price ID found for subscription ID: {$subscriptionId}");
+            Log::channel('stripe')->error("No price ID found for subscription ID: {$subscriptionId}");
             return;
         }
 
         $plan = Plan::where('stripe_plan_id', $priceId)->first();
         if (!$plan) {
-            Log::error("Plan not found for Stripe price ID: {$priceId}");
+            Log::channel('stripe')->error("Plan not found for Stripe price ID: {$priceId}");
             return;
         }
 
@@ -181,12 +194,14 @@ class StripeEventListener
             ->first();
         if ($purchase) {
             $newExpiry = $this->calculateExpirationDate($plan, $purchase);
+            Log::info('Renew Updated expiry date: ' . $newExpiry);
             $purchase->update([
                 'plan_id' => $plan->id,
                 'expires_at' => $newExpiry,
             ]);
         } else {
             $newExpiry = $this->calculateExpirationDate($plan);
+            Log::info('Renew Created expiry date: ' . $newExpiry);
             $purchase = $user->purchases()->create([
                 'is_active' => true,
                 'is_lifetime' => false,
@@ -203,26 +218,26 @@ class StripeEventListener
         $subscription = $payload['data']['object'];
         $stripeCustomerId = $subscription['customer'] ?? null;
         if (!$stripeCustomerId) {
-            Log::error("Subscription updated event missing customer ID.");
+            Log::channel('stripe')->error("Subscription updated event missing customer ID.");
             return;
         }
 
         /** @var User $user **/
         $user = User::where('stripe_id', $stripeCustomerId)->first();
         if (!$user) {
-            Log::error("User not found for Stripe customer ID: {$stripeCustomerId}");
+            Log::channel('stripe')->error("User not found for Stripe customer ID: {$stripeCustomerId}");
             return;
         }
 
         // Extract the price ID (assume first item) and find the plan.
         if (empty($subscription['items']['data'][0]['plan']['id'])) {
-            Log::error("No plan ID found in subscription updated event.");
+            Log::channel('stripe')->error("No plan ID found in subscription updated event.");
             return;
         }
         $priceId = $subscription['items']['data'][0]['plan']['id'];
         $plan = Plan::where('stripe_plan_id', $priceId)->first();
         if (!$plan) {
-            Log::error("Plan not found for Stripe price ID: {$priceId}");
+            Log::channel('stripe')->error("Plan not found for Stripe price ID: {$priceId}");
             return;
         }
 
@@ -246,14 +261,14 @@ class StripeEventListener
         $stripeCustomerId = $subscription['customer'] ?? null;
 
         if (!$stripeCustomerId) {
-            Log::error("Subscription deletion event missing customer ID.");
+            Log::channel('stripe')->error("Subscription deletion event missing customer ID.");
             return;
         }
 
         // Find the user by their Stripe customer ID.
         $user = User::where('stripe_id', $stripeCustomerId)->first();
         if (!$user) {
-            Log::error("User not found for Stripe customer ID: {$stripeCustomerId}");
+            Log::channel('stripe')->error("User not found for Stripe customer ID: {$stripeCustomerId}");
             return;
         }
 

@@ -1,0 +1,17 @@
+.profile-comment-box .vs-comment-form {
+    padding: 20px;
+}
+
+.profile-sidebar .vs-mobile-menu {
+    overflow-y: auto;
+    margin-top: 0;
+    padding: 10px 0;
+}
+
+.profile-sidebar .vs-mobile-menu ul{
+    padding: 0 20px;
+}
+
+.profile-sidebar .vs-mobile-menu ul li a:before {
+    content: none;
+}

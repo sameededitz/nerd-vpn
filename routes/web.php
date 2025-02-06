@@ -2,22 +2,37 @@
 
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-    
+
     Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
     Route::get('/billing-portal', [CheckoutController::class, 'billingPortal'])->name('billing-portal');
-    
+
     Route::get('/checkout/{plan:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+
+    Route::post('/cancel-subscription', [PageController::class, 'cancelSubscription'])->name('cancel-subscription');
+
+    Route::post('/resume-subscription', [PageController::class, 'resumeSubscription'])->name('renew-subscription');
+
+    Route::post('/cancel-now-subscription', [PageController::class, 'cancelNowSubscription'])->name('cancel-now-subscription');
+});
+
+Route::group(['prefix' => 'profile', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [PageController::class, 'profile'])->name('profile');
+
+    Route::get('/billing', [PageController::class, 'billing'])->name('billing');
 });
 
 require __DIR__ . '/auth.php';

@@ -1,15 +1,29 @@
 @extends('layout.user-layout')
 @section('title')
-    Success | {{ Auth::user()->name ?? 'Guest' }}
+    Profile | {{ Auth::user()->name ?? 'Guest' }}
 @endsection
 @section('content')
     <!--==============================
-                                                    Success Area
-                                                    ============================== -->
+                                                            Success Area
+                                                            ============================== -->
     <section class="contact-layout1 space-top contact-space">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 text-center">
+            <div class="row justify-content-between profile-comment-box">
+                <div class="col-xl-4 text-center">
+                    <div class="vs-comment-form profile-sidebar">
+                        <div class="vs-mobile-menu">
+                            <ul>
+                                <li>
+                                    <a href="">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('billing') }}">Billing</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 text-center">
                     <div class="title-area wow fadeInUp wow-animated" data-wow-delay="0.3s">
                         <span class="sec-subtitle2">Success </span>
                         <h2 class="sec-title">Your Payment Success !</h2>
@@ -20,18 +34,6 @@
                         @endif
                         <div id="respond" class="comment-respond d-flex justify-content-center flex-column">
                             <h4 class="sec-title">You're Premium Now</h4>
-                            @if ($purchase->is_lifetime)
-                                <p class="mb-4">
-                                    Your lifetime purchase is now active, and you have unlimited access to all the features
-                                    of {{ config('app.name') }}.
-                                </p>
-                            @else
-                                <p class="mb-4">
-                                    Your subscription will automatically renew on
-                                    {{ $purchase->expires_at->toDateString() }} and you'll be charged
-                                    ${{ number_format($plan->price, 2) }} for the next billing cycle.
-                                </p>
-                            @endif
                             <p class="mb-4">Now you can access all the features of {{ config('app.name') }}</p>
                             <button class="vs-btn w-100 justify-content-center" type="submit">Back to Home</button>
                         </div>

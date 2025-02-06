@@ -7,7 +7,6 @@ use App\Models\StripeCheckoutSession;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Cashier;
 use Stripe\Exception\ApiErrorException;
@@ -64,10 +63,10 @@ class CheckoutController extends Controller
             return redirect()->route('pricing');
         }
 
-        if (StripeCheckoutSession::where('session_id', $sessionId)->exists()) {
-            return redirect()->route('home')->with([
+        if (!$sessionId || session('checkout_session_id') !== $sessionId) {
+            return redirect()->route('pricing')->with([
                 'status' => 'error',
-                'message' => 'Checkout session has already been used',
+                'message' => 'Invalid session or session expired.',
             ]);
         }
 
@@ -91,12 +90,6 @@ class CheckoutController extends Controller
 
             /** @var \App\Models\User $user **/
             $user = Auth::user();
-
-            StripeCheckoutSession::create([
-                'session_id' => $sessionId,
-                'user_id' => $user->id,
-                'plan_id' => $plan->id ?? null,
-            ]);
 
             session()->forget('checkout_session_id');
 
@@ -137,7 +130,7 @@ class CheckoutController extends Controller
 
     public function billingPortal(Request $request)
     {
-        return $request->user()->redirectToBillingPortal(route('home'));
+        return $request->user()->redirectToBillingPortal(route('billing'));
     }
 
     protected function calculateExpirationDate(Plan $plan, $purchase = null)

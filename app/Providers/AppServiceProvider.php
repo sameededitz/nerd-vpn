@@ -40,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $ip = request()->ip();
+        // Force IPv4 if the IP is IPv6
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            // Get the IPv4 address from the X-Forwarded-For header if behind a proxy (e.g., Cloudflare)
+            $ip = request()->header('X-Forwarded-For', $ip);
+        }
 
         $location = Cache::remember("user_location_{$ip}", now()->addMinutes(30), function () use ($ip) {
             $response = Http::get("http://ip-api.com/json/{$ip}")->json();

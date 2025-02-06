@@ -150,7 +150,7 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access. With
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access. With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
                                         geo-restrictions with ease.
@@ -177,7 +177,7 @@
                             <div class="accordion-header" id="headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Will WEEPN slow down my internet connection?
+                                    Will {{config('app.name')}} slow down my internet connection?
                                 </button>
                             </div>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -213,7 +213,7 @@
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access. With
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access. With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
                                         geo-restrictions with ease..
@@ -225,13 +225,13 @@
                             <div class="accordion-header" id="headingSix">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    How do I set up WEEPN?
+                                    How do I set up {{config('app.name')}}?
                                 </button>
                             </div>
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access. With
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access. With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
                                         geo-restrictions with ease.</p>

@@ -9,7 +9,7 @@
                                 <li><i class="fas fa-tv"></i>Your IP : {{ $userIp }}</li>
                                 <li><i class="fas fa-map-marker-alt"></i>Your Location : {{ $userLocation }}</li>
                                 <li><i class="fas fa-shield-check"></i>Your Status : UnProtected</li>
-                            </ul>                            
+                            </ul>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -58,8 +58,9 @@
                     <div class="row position-relative align-items-center">
                         <div class="col-auto">
                             <div class="header-logo">
-                                <a href="index.html">
-                                    <img src="assets/img/dark-logo.svg" alt="logo">
+                                <a href="{{ route('home') }}" class="d-flex align-items-center">
+                                    <img src="{{ asset('assets/img/logo.png') }}" width="48px" alt="logo">
+                                    <h4 class="sec-title ms-3 mb-0 d-none d-sm-block">{{ config('app.name') }}</h4>
                                 </a>
                             </div>
                         </div>
@@ -79,7 +80,7 @@
                                                     <a href="{{ route('pricing') }}">Pricing</a>
                                                 </li>
                                                 <li>
-                                                    <a href="contact.html">Contact</a>
+                                                    <a href="{{ route('contact') }}">Contact</a>
                                                 </li>
                                                 @if (Auth::check() && Auth::user()->isPremium())
                                                     <li>

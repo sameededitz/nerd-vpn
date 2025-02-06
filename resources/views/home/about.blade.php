@@ -100,7 +100,7 @@
                             </div>
                             <div class="service-body">
                                 <h2 class="service-title h5"><a href="service-details.html">Threat Protection</a></h2>
-                                <p class="service-text"> WEEPN's Threat Protection blocks malicious sites, phishing, and
+                                <p class="service-text"> {{config('app.name')}}'s Threat Protection blocks malicious sites, phishing, and
                                     malware, keeping your online experience secure your data.</p>
                             </div>
                             <div class="shep-btn">
@@ -211,7 +211,7 @@
                             </div>
                             <div class="service-body">
                                 <h2 class="service-title h5"><a href="service-details.html">Private DNS</a></h2>
-                                <p class="service-text">Use WEEPN's Private DNS to secure your internet traffic,online your
+                                <p class="service-text">Use {{config('app.name')}}'s Private DNS to secure your internet traffic,online your
                                     activities remain to anonymous and protected.</p>
                             </div>
                             <div class="shep-btn">

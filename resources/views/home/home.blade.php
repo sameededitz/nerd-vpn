@@ -93,7 +93,7 @@
                                 <h2 class="process-title h5">Easy Download</h2>
                             </div>
                             <p class="process-text">
-                                Get started quickly by downloading the WEEPN app for your device.
+                                Get started quickly by downloading the {{config('app.name')}} app for your device.
                             </p>
                             <div class="shep-btn">
                                 <svg width="72" height="72" viewBox="0 0 111 111" fill="none"
@@ -195,7 +195,7 @@
                         </div>
                         <div class="about-body">
                             <p class="about-text">
-                                At WEEPN, we are committed to providing secure, private, and unrestricted internet
+                                At {{config('app.name')}}, we are committed to providing secure, private, and unrestricted internet
                                 access to our users worldwide.
                                 In an age where online privacy is more important than ever, our mission is to protect
                                 your personal data.
@@ -623,7 +623,7 @@
                             <div class="cta-content">
                                 <div class="title-area text-left">
                                     <span class="sec-subtitle2">Stay In Your Cybersecurity</span>
-                                    <h2 class="sec-title">Save 70% On WEEPN Plus Get Extra Month</h2>
+                                    <h2 class="sec-title">Save 70% On {{config('app.name')}} Plus Get Extra Month</h2>
                                 </div>
                                 <div class="cta-body">
                                     <div class="download-btn">
@@ -920,7 +920,7 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
@@ -949,7 +949,7 @@
                             <div class="accordion-header" id="headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Will WEEPN slow down my internet connection?
+                                    Will {{config('app.name')}} slow down my internet connection?
                                 </button>
                             </div>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -987,7 +987,7 @@
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
@@ -1000,13 +1000,13 @@
                             <div class="accordion-header" id="headingSix">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    How do I set up WEEPN?
+                                    How do I set up {{config('app.name')}}?
                                 </button>
                             </div>
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> WEEPN provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass

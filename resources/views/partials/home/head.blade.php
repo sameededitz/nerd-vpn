@@ -2,16 +2,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>@yield('title') | {{ config('app.name') }} </title>
 <meta name="author" content="Vecuro">
-<meta name="description" content="WEEPN - Safe Browsing & Internet Access Template">
-<meta name="keywords" content="WEEPN - Safe Browsing & Internet Access Template">
+<meta name="description" content="{{ config('app.name') }} - Safe Browsing & Internet Access Template">
+<meta name="keywords" content="{{ config('app.name') }} - Safe Browsing & Internet Access Template">
 <meta name="robots" content="INDEX,FOLLOW">
 
 <!-- Mobile Specific Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Favicons - Place favicon.ico in the root directory -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon-16x16.png') }}">
 <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
-<link rel="icon" href="{{ asset('assets/img-2/favicon.png') }}" type="image/x-icon">
+<link rel="manifest" href="{{ asset('assets/img/site.webmanifest') }}">
 
 <!--==============================
  Google Fonts

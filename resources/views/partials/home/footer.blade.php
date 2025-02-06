@@ -1,28 +1,13 @@
-<footer class="footer-wrapper  footer-layout1" data-bg-src="assets/img-2/footer-bg-1-1.jpg">
+<footer class="footer-wrapper  footer-layout1" data-bg-src="{{ asset('assets/img-2/footer-bg-1-1.jpg') }}">
     <div class="container">
         <div class="footer-top">
             <div class="row g-5 justify-content-lg-between justify-content-center align-items-center">
                 <div class="col-xl-5 col-lg-4">
                     <div class="footer-logo">
-                        <a href="index.html"><img src="assets/img/logo.svg" alt="logo"></a>
-                    </div>
-                </div>
-                <div class="col-xl-7 col-lg-8">
-                    <div class="widget widget_newsletter footer-widget">
-                        <div class="newsletter1">
-                            <div class="newsletter-inner">
-                                <span class="newsletter-icon"><img src="assets/img/icon/envlope1.png"
-                                        alt="icon"></span>
-                                <h4 class="newsletter_title h5">Subscribe Newsletter</h4>
-                            </div>
-                            <form class="newsletter-form">
-                                <div class="search-btn">
-                                    <input class="form-control" type="email" placeholder="Enter your email....">
-                                    <button type="submit" class="vs-btn2">Subscribe</button>
-                                </div>
-                            </form>
-                        </div>
-
+                        <a href="{{ route('home') }}" class="d-flex align-items-center">
+                            <img src="{{ asset('assets/img/logo.png') }}" width="64px" alt="logo">
+                            <h4 class="sec-title ms-3 mt-3">{{ config('app.name') }}</h4>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,12 +40,6 @@
                             </li>
                             <li><a href="service.html"><i class="fa-regular fa-chevron-right"></i>Our Services</a>
                             </li>
-                            <li><a href="faq.html"><i class="fa-regular fa-chevron-right"></i>FAQs</a></li>
-                            <li><a href="team.html"><i class="fa-regular fa-chevron-right"></i>Team</a></li>
-                            <li><a href="blog.html"><i class="fa-regular fa-chevron-right"></i>Blog Post</a>
-                            </li>
-                            <li><a href="contact.html"><i class="fa-regular fa-chevron-right"></i>Contact Us</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -68,10 +47,6 @@
                     <div class="widget footer-widget">
                         <h3 class="widget_title">Explore</h3>
                         <ul>
-                            <li><a href="price.html"><i class="fa-regular fa-chevron-right"></i>What We Offer</a>
-                            </li>
-                            <li><a href="#"><i class="fa-regular fa-chevron-right"></i>Customer Feedback</a></li>
-                            <li><a href="blog.html"><i class="fa-regular fa-chevron-right"></i>Latest Post</a></li>
                             <li><a href="#"><i class="fa-regular fa-chevron-right"></i>Help Center</a></li>
                             <li><a href="#"><i class="fa-regular fa-chevron-right"></i>Terms & Condition</a>
                             </li>
@@ -92,7 +67,7 @@
                             <div class="media-icon icon-btn"><i class="fa-solid fa-envelope"></i></div>
                             <div class="media-body">
                                 <h3 class="media-title">Email Address:</h3>
-                                <p class="media-info"><a href="mailto:example@weepn.com">example@weepn.com</a>
+                                <p class="media-info"><a href="mailto:example@email.com">example@nerdvpn.com</a>
                                 </p>
                             </div>
                         </div>
@@ -111,8 +86,10 @@
         <div class="copyright-wrap">
             <div class="row g-2 justify-content-lg-between justify-content-center align-items-center">
                 <div class="col-auto">
-                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2025 <a href="index.html">
-                            NerdVPN</a>. All Rights Reserved By <a href="https://tecclubx.com">TecClub</a></p>
+                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> {{ date('Y') }} <a
+                            href="{{ route('home') }}">
+                            {{ config('app.name') }} </a>. All Rights Reserved By <a
+                            href="https://tecclubx.com">TecClub</a></p>
                 </div>
                 <div class="col-auto">
                     <div class="copyright-menu">

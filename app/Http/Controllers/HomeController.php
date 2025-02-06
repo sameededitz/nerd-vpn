@@ -49,6 +49,11 @@ class HomeController extends Controller
         return view('home.pricing', compact('plans', 'userHasActiveSubscription', 'userHasLifetimePlan'));
     }
 
+    public function contact()
+    {
+        return view('home.contact');
+    }
+
     public function test()
     {
         return view('home.success');

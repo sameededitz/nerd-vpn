@@ -13,6 +13,8 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/pricing', [HomeController::class, 'pricing'])->name('pricing');
 
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
+
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 

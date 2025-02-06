@@ -66,7 +66,7 @@ class PlanEdit extends Component
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
             'stripe_plan_id' => $this->stripe_plan_id,
-            'lifetime' => $this->lifetime,
+            'lifetime' => $this->lifetime ?? false,
         ]);
         return redirect()->route('all-plans')->with([
             'status' => 'success',

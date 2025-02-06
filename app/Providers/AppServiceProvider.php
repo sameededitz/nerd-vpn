@@ -5,12 +5,11 @@ namespace App\Providers;
 use App\Listeners\StripeEventListener;
 use App\Listeners\UpdateLastLogin;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Events\WebhookReceived;
@@ -40,21 +39,27 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $ip = request()->ip();
+        Log::info('Request', ['request' => request()]);
         // Force IPv4 if the IP is IPv6
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
             // Get the IPv4 address from the X-Forwarded-For header if behind a proxy (e.g., Cloudflare)
             $ip = request()->header('X-Forwarded-For', $ip);
         }
 
-        $location = Cache::remember("user_location_{$ip}", now()->addMinutes(30), function () use ($ip) {
-            $response = Http::get("http://ip-api.com/json/{$ip}")->json();
-            return isset($response['city']) ? $response['city'] . ', ' . $response['country'] : 'Unknown';
+        $token = env('IP_INFO_KEY') ?? '22c6e0d52b99c0';
+        $ipInfo = Cache::remember("user_ip_info_{$ip}", now()->addMinutes(30), function () use ($ip, $token) {
+            $response = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
+            return $response;
         });
 
-        View::composer('partials.home.navbar', function ($view) use ($ip, $location) {
+        // Extract IP and location information
+        $userIp = isset($ipInfo['ip']) ? $ipInfo['ip'] : 'Unknown IP';
+        $userLocation = isset($ipInfo['city']) && isset($ipInfo['country']) ? $ipInfo['city'] . ', ' . $ipInfo['country'] : 'Unknown Location';
+
+        View::composer('partials.home.navbar', function ($view) use ($userIp, $userLocation) {
             $view->with([
-                'userIp' => $ip,
-                'userLocation' => $location
+                'userIp' => $userIp,
+                'userLocation' => $userLocation
             ]);
         });
     }

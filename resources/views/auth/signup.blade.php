@@ -95,7 +95,7 @@
                                         <button class="vs-btn w-100 justify-content-center" type="submit">Sign Up</button>
                                     </div>
                                 </div>
-                                <p class="mt-3">Or Sign Up With</p>
+                                {{-- <p class="mt-3">Or Sign Up With</p>
                                 <div class="row justify-content-center g-3 ">
                                     <div class="col-md-5 form-group">
                                         <a href="{{ route('google-login') }}"
@@ -110,7 +110,7 @@
                                             <i class="fa-brands fa-apple mx-2"></i>
                                         </a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <p class="mt-2">Already have an account? <a href="{{ route('login') }}">&nbsp;Login</a>
                                 </p>
                             </form>

@@ -39,7 +39,6 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $ip = request()->ip();
-        Log::info('Request', ['request' => request()]);
         // Force IPv4 if the IP is IPv6
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
             // Get the IPv4 address from the X-Forwarded-For header if behind a proxy (e.g., Cloudflare)
@@ -51,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
             $response = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
             return $response;
         });
+        Log::info('IP INFO', $ipInfo);
 
         // Extract IP and location information
         $userIp = isset($ipInfo['ip']) ? $ipInfo['ip'] : 'Unknown IP';

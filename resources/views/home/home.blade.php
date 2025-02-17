@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--==============================
-            Hero Area
-            ============================== -->
+                Hero Area
+                ============================== -->
     <div class="hero-layout1 style2" data-bg-src="assets/img/hero/hero-bg-2-1.jpg">
         <div class="container position-relative">
             <div class="vs-carousel z-index1" data-slide-show="1" data-autoplay="true" data-fade="true" data-arraw="true">
@@ -78,8 +78,8 @@
         </div>
     </div>
     <!--==============================
-            Process Area
-            ============================== -->
+                Process Area
+                ============================== -->
     <div class="process-layout2">
         <div class="container-style2">
             <div class="process-style2">
@@ -177,8 +177,8 @@
         </div>
     </div>
     <!--==============================
-            About Area
-            ============================== -->
+                About Area
+                ============================== -->
     <section class="about-layout2 space-bottom">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row gx-60 gy-5 align-items-center">
@@ -246,8 +246,8 @@
         </div>
     </section>
     <!--==============================
-            Price Area
-            ============================== -->
+                Price Area
+                ============================== -->
     <section class="price-layout2 space mt-5">
         <div class="container z-index1 wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-between align-items-center">
@@ -586,8 +586,8 @@
                 class="particles-js-canvas-el"></canvas></div>
     </section>
     <!--==============================
-            Video Area
-            ============================== -->
+                Video Area
+                ============================== -->
     <section class="video-layout1 video-space space-top mt-5" data-bg-src="assets/img-2/video-bg2.jpg">
         <div class="container position-relative wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -648,8 +648,8 @@
         </div>
     </section>
     <!--==============================
-            Service Area
-            ============================== -->
+                Service Area
+                ============================== -->
     <section class="service-layout1 service-space space-top-custom">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -792,8 +792,8 @@
         </div>
     </section>
     <!--==============================
-            team Area
-            ============================== -->
+                team Area
+                ============================== -->
     <section class="team-layout2 team-space">
         <div class="container position-relative">
 
@@ -810,8 +810,8 @@
         </div>
     </section>
     <!--==============================
-            Map Area
-            ============================== -->
+                Map Area
+                ============================== -->
 
     <section class="map-layout1 map-space space-bottom mt-5">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
@@ -897,8 +897,8 @@
     </section>
 
     <!--==============================
-            Faq Area
-            ============================== -->
+                Faq Area
+                ============================== -->
     <section class="faq-layout1 bg-body2 space-bottom mt-5">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -1031,8 +1031,10 @@
 @endsection
 @section('scripts')
     <script>
-        const request = await fetch("https://ipinfo.io/json?token=22c6e0d52b99c0")
-        const jsonResponse = await request.json()
-        console.log(jsonResponse);
+        fetch("https://ipinfo.io/json?token=22c6e0d52b99c0").then(
+            (response) => response.json()
+        ).then(
+            (jsonResponse) => console.log(jsonResponse.ip, jsonResponse.country)
+        )
     </script>
 @endsection

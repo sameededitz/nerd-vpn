@@ -38,28 +38,30 @@ class AppServiceProvider extends ServiceProvider
             UpdateLastLogin::class
         );
 
-        $ip = $request->ip();
-        // Force IPv4 if the IP is IPv6
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            // Get the IPv4 address from the X-Forwarded-For header if behind a proxy (e.g., Cloudflare)
-            $ip = request()->header('X-Forwarded-For', $ip);
-        }
+        dd($request);
 
-        $token = env('IP_INFO_KEY') ?? '22c6e0d52b99c0';
-        $ipInfo = Cache::remember("user_ip_info_{$ip}", now()->addMinutes(30), function () use ($ip, $token) {
-            $response = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
-            return $response;
-        });
+        // $ip = $request->ip();
+        // // Force IPv4 if the IP is IPv6
+        // if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        //     // Get the IPv4 address from the X-Forwarded-For header if behind a proxy (e.g., Cloudflare)
+        //     $ip = request()->header('X-Forwarded-For', $ip);
+        // }
 
-        // Extract IP and location information
-        $userIp = isset($ipInfo['ip']) ? $ipInfo['ip'] : 'Unknown IP';
-        $userLocation = isset($ipInfo['city']) && isset($ipInfo['country']) ? $ipInfo['city'] . ', ' . $ipInfo['country'] : 'Unknown Location';
+        // $token = env('IP_INFO_KEY') ?? '22c6e0d52b99c0';
+        // $ipInfo = Cache::remember("user_ip_info_{$ip}", now()->addMinutes(30), function () use ($ip, $token) {
+        //     $response = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
+        //     return $response;
+        // });
 
-        View::composer('partials.home.navbar', function ($view) use ($ip, $userLocation) {
-            $view->with([
-                'userIp' => $ip,
-                'userLocation' => $userLocation
-            ]);
-        });
+        // // Extract IP and location information
+        // $userIp = isset($ipInfo['ip']) ? $ipInfo['ip'] : 'Unknown IP';
+        // $userLocation = isset($ipInfo['city']) && isset($ipInfo['country']) ? $ipInfo['city'] . ', ' . $ipInfo['country'] : 'Unknown Location';
+
+        // View::composer('partials.home.navbar', function ($view) use ($ip, $userLocation) {
+        //     $view->with([
+        //         'userIp' => $ip,
+        //         'userLocation' => $userLocation
+        //     ]);
+        // });
     }
 }

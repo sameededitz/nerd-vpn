@@ -3443,12 +3443,12 @@ a.text-theme:hover,
   left: 0%;
   top: 0px;
   bottom: 0px;
-  width: 200%;
+  width: 103%;
   height: 100%;
   max-height: 80px;
   z-index: -1;
   background-color: var(--theme-color);
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px;
 }
 
 .header-layout2 .header-links li {

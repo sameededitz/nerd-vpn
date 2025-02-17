@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--==============================
-        Hero Area
-        ============================== -->
+            Hero Area
+            ============================== -->
     <div class="hero-layout1 style2" data-bg-src="assets/img/hero/hero-bg-2-1.jpg">
         <div class="container position-relative">
             <div class="vs-carousel z-index1" data-slide-show="1" data-autoplay="true" data-fade="true" data-arraw="true">
@@ -78,8 +78,8 @@
         </div>
     </div>
     <!--==============================
-        Process Area
-        ============================== -->
+            Process Area
+            ============================== -->
     <div class="process-layout2">
         <div class="container-style2">
             <div class="process-style2">
@@ -93,7 +93,7 @@
                                 <h2 class="process-title h5">Easy Download</h2>
                             </div>
                             <p class="process-text">
-                                Get started quickly by downloading the {{config('app.name')}} app for your device.
+                                Get started quickly by downloading the {{ config('app.name') }} app for your device.
                             </p>
                             <div class="shep-btn">
                                 <svg width="72" height="72" viewBox="0 0 111 111" fill="none"
@@ -177,8 +177,8 @@
         </div>
     </div>
     <!--==============================
-        About Area
-        ============================== -->
+            About Area
+            ============================== -->
     <section class="about-layout2 space-bottom">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row gx-60 gy-5 align-items-center">
@@ -195,7 +195,8 @@
                         </div>
                         <div class="about-body">
                             <p class="about-text">
-                                At {{config('app.name')}}, we are committed to providing secure, private, and unrestricted internet
+                                At {{ config('app.name') }}, we are committed to providing secure, private, and unrestricted
+                                internet
                                 access to our users worldwide.
                                 In an age where online privacy is more important than ever, our mission is to protect
                                 your personal data.
@@ -245,8 +246,8 @@
         </div>
     </section>
     <!--==============================
-        Price Area
-        ============================== -->
+            Price Area
+            ============================== -->
     <section class="price-layout2 space mt-5">
         <div class="container z-index1 wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-between align-items-center">
@@ -585,8 +586,8 @@
                 class="particles-js-canvas-el"></canvas></div>
     </section>
     <!--==============================
-        Video Area
-        ============================== -->
+            Video Area
+            ============================== -->
     <section class="video-layout1 video-space space-top mt-5" data-bg-src="assets/img-2/video-bg2.jpg">
         <div class="container position-relative wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -623,7 +624,7 @@
                             <div class="cta-content">
                                 <div class="title-area text-left">
                                     <span class="sec-subtitle2">Stay In Your Cybersecurity</span>
-                                    <h2 class="sec-title">Save 70% On {{config('app.name')}} Plus Get Extra Month</h2>
+                                    <h2 class="sec-title">Save 70% On {{ config('app.name') }} Plus Get Extra Month</h2>
                                 </div>
                                 <div class="cta-body">
                                     <div class="download-btn">
@@ -647,8 +648,8 @@
         </div>
     </section>
     <!--==============================
-        Service Area
-        ============================== -->
+            Service Area
+            ============================== -->
     <section class="service-layout1 service-space space-top-custom">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -791,8 +792,8 @@
         </div>
     </section>
     <!--==============================
-        team Area
-        ============================== -->
+            team Area
+            ============================== -->
     <section class="team-layout2 team-space">
         <div class="container position-relative">
 
@@ -809,8 +810,8 @@
         </div>
     </section>
     <!--==============================
-        Map Area
-        ============================== -->
+            Map Area
+            ============================== -->
 
     <section class="map-layout1 map-space space-bottom mt-5">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
@@ -896,8 +897,8 @@
     </section>
 
     <!--==============================
-        Faq Area
-        ============================== -->
+            Faq Area
+            ============================== -->
     <section class="faq-layout1 bg-body2 space-bottom mt-5">
         <div class="container wow fadeInUp wow-animated" data-wow-delay="0.3s">
             <div class="row justify-content-center">
@@ -920,7 +921,8 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{ config('app.name') }} provides enhanced security, privacy, and unrestricted
+                                        internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
@@ -949,7 +951,7 @@
                             <div class="accordion-header" id="headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Will {{config('app.name')}} slow down my internet connection?
+                                    Will {{ config('app.name') }} slow down my internet connection?
                                 </button>
                             </div>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -987,7 +989,8 @@
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{ config('app.name') }} provides enhanced security, privacy, and unrestricted
+                                        internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
@@ -1000,13 +1003,14 @@
                             <div class="accordion-header" id="headingSix">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    How do I set up {{config('app.name')}}?
+                                    How do I set up {{ config('app.name') }}?
                                 </button>
                             </div>
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#faqVersion1">
                                 <div class="accordion-body">
-                                    <p> {{config('app.name')}} provides enhanced security, privacy, and unrestricted internet access.
+                                    <p> {{ config('app.name') }} provides enhanced security, privacy, and unrestricted
+                                        internet access.
                                         With
                                         our advanced encryption,
                                         no-logs policy, and global server network, you can browse securely and bypass
@@ -1024,4 +1028,11 @@
             </div>
         </div>
     </section>
+@endsection
+@section('scripts')
+    <script>
+        const request = await fetch("https://ipinfo.io/json?token=22c6e0d52b99c0")
+        const jsonResponse = await request.json()
+        console.log(jsonResponse);
+    </script>
 @endsection

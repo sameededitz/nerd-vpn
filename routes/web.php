@@ -4,6 +4,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 
@@ -75,10 +76,16 @@ Route::get('/migrate-fresh', function () {
     return 'Migrated';
 });
 
-Route::get('/debug-ip', function () {
+Route::get('/check-ip', function () {
+    $ip = request()->header('X-Forwarded-For') 
+        ?? request()->header('CF-Connecting-IP') 
+        ?? request()->ip();
+    
+    $token = env('IP_INFO_KEY', '22c6e0d52b99c0');
+    $ipInfo = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
+    
     return response()->json([
-        'ip' => request()->ip(),
-        'cf_ip' => request()->header('CF-Connecting-IP'),
-        'xff_ip' => request()->header('X-Forwarded-For'),
+        'Detected IP' => $ip,
+        'IP Info' => $ipInfo,
     ]);
 });

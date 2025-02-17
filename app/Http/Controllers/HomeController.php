@@ -10,7 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.home');
+        $plans = Plan::all();
+
+        return view('home.home', compact('plans'));
     }
 
     public function about()

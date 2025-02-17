@@ -6,8 +6,8 @@
                     <div class="col-auto">
                         <div class="header-links">
                             <ul>
-                                <li><i class="fas fa-tv"></i>Your IP : {{ $userIp }}</li>
-                                <li><i class="fas fa-map-marker-alt"></i>Your Location : {{ $userLocation }}</li>
+                                <li><i class="fas fa-tv"></i>Your IP : <span id="userIp">Loading...</span></li>
+                                <li><i class="fas fa-map-marker-alt"></i>Your Location : <span id="userLocation">Loading...</span></li>
                                 <li><i class="fas fa-shield-check"></i>Your Status : UnProtected</li>
                             </ul>
                         </div>

@@ -1029,12 +1029,3 @@
         </div>
     </section>
 @endsection
-@section('scripts')
-    <script>
-        fetch("https://ipinfo.io/json?token=22c6e0d52b99c0").then(
-            (response) => response.json()
-        ).then(
-            (jsonResponse) => console.log(jsonResponse.ip, jsonResponse.country)
-        )
-    </script>
-@endsection

@@ -38,7 +38,16 @@ class AppServiceProvider extends ServiceProvider
             UpdateLastLogin::class
         );
 
-        dd($request);
+        // dd($request->ip());
+
+        $ipAddress = $request->ip();
+
+        // Check if the IP is IPv6 and convert it to IPv4 if possible
+        if (filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $ipAddress = $this->convertIPv6ToIPv4($ipAddress);
+        }
+
+        dd($ipAddress);
 
         // $ip = $request->ip();
         // // Force IPv4 if the IP is IPv6
@@ -63,5 +72,14 @@ class AppServiceProvider extends ServiceProvider
         //         'userLocation' => $userLocation
         //     ]);
         // });
+    }
+
+    private function convertIPv6ToIPv4($ipv6)
+    {
+        // This is a basic example and may not work for all IPv6 addresses
+        if (substr($ipv6, 0, 7) == '::ffff:') {
+            return substr($ipv6, 7);
+        }
+        return $ipv6; // Return the original IPv6 if conversion is not possible
     }
 }

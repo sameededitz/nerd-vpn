@@ -80,12 +80,23 @@ Route::get('/check-ip', function () {
     $ip = request()->header('X-Forwarded-For') 
         ?? request()->header('CF-Connecting-IP') 
         ?? request()->ip();
-    
-    $token = env('IP_INFO_KEY', '22c6e0d52b99c0');
-    $ipInfo = Http::get("https://ipinfo.io/{$ip}/json?token={$token}")->json();
-    
-    return response()->json([
-        'Detected IP' => $ip,
-        'IP Info' => $ipInfo,
-    ]);
+
+    if (strpos($ip, ',') !== false) {
+        $ipList = explode(',', $ip);
+        foreach ($ipList as $singleIp) {
+            $trimmedIp = trim($singleIp);
+            if (filter_var($trimmedIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                $ip = $trimmedIp;
+                break;
+            }
+        }
+    }
+
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        $ipLookup = Http::get("https://api64.ipify.org?format=json")->json();
+        $ip = $ipLookup['ip'] ?? $ip;
+    }
+
+    return response()->json(['Detected IP' => $ip]);
 });
+

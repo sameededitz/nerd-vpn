@@ -74,3 +74,11 @@ Route::get('/migrate-fresh', function () {
     Artisan::call('migrate:fresh --seed');
     return 'Migrated';
 });
+
+Route::get('/debug-ip', function () {
+    return response()->json([
+        'ip' => request()->ip(),
+        'cf_ip' => request()->header('CF-Connecting-IP'),
+        'xff_ip' => request()->header('X-Forwarded-For'),
+    ]);
+});

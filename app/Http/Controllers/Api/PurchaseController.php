@@ -57,7 +57,7 @@ class PurchaseController extends Controller
             ->first();
         return response()->json([
             'status' => true,
-            'purchases' => $purchases
+            'purchases' => $purchases ? [$purchases] : []
         ], 200);
     }
 

@@ -66,9 +66,12 @@ Version: 1.0.0
 :root {
   --body-bg: #0E192D;
   --theme-color: #3EC964;
+  /* --theme-color: #3EC964; */
   --theme-color2: #025FCA;
+  /* --theme-color2: #025FCA; */
   --secondary-color: #4286F4;
   --body-color: #1C326C;
+  /* --body-color: #1C326C; */
   --title-color: #1B2841;
   --smoke-color: #425783;
   --light-color: #f8f9fa;
@@ -3425,7 +3428,7 @@ a.text-theme:hover,
 
 .header-layout2 .header-top {
   padding-bottom: 41px;
-  background-color: var(--title-color);
+  background-color: var(--theme-color);
 }
 
 .header-layout2 .header-bg::before {
@@ -3447,28 +3450,28 @@ a.text-theme:hover,
   height: 100%;
   max-height: 80px;
   z-index: -1;
-  background-color: var(--theme-color);
+  background-color: var(--body-bg);
   border-radius: 10px;
 }
 
 .header-layout2 .header-links li {
-  color: var(--white-color);
+  color: var(--title-color);
 }
 
 .header-layout2 .header-links li i {
-  color: var(--theme-color);
+  color: var(--title-color);
 }
 
 .header-layout2 .header-links li a:hover {
-  color: var(--theme-color);
-}
-
-.header-layout2 .social-style1 a i {
   color: var(--white-color);
 }
 
+.header-layout2 .social-style1 a i {
+  color: var(--title-color);
+}
+
 .header-layout2 .social-style1 a:hover i {
-  color: var(--theme-color);
+  color: var(--white-color);
 }
 
 .header-layout2 .sticky-wrapper {
@@ -3481,16 +3484,20 @@ a.text-theme:hover,
   margin-left: 40px;
 }
 
+.header-layout2 .header-logo a:hover h4 {
+  color: var(--secondary-color);
+}
+
 .header-layout2 .header-links {
   padding-left: 40px;
 }
 
 .header-layout2 .menu-style1>ul>li>a {
-  color: var(--title-color);
+  color: var(--white-color);
 }
 
 .header-layout2 .menu-style1>ul>li>a:hover {
-  color: var(--white-color);
+  color: var(--secondary-color);
 }
 
 .header-layout2 .searchBoxTggler {

@@ -74,7 +74,7 @@
                         <div class="media-style1">
                             <div class="media-icon icon-btn"><i class="fa-solid fa-map-location-dot"></i></div>
                             <div class="media-body">
-                                <h3 class="media-title">12th Street, New York,United State</h3>
+                                <h3 class="media-title">9304 Forest Ln Suite 206 Dallas, Texas</h3>
                             </div>
                         </div>
                     </div>
